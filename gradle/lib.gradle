@@ -1,0 +1,92 @@
+
+repositories {
+    jcenter()
+}
+
+def versions = [
+		javaxEl			:	'3.0.0',	
+		slf4j           :	'1.7.21',
+		logback         :	'1.1.7',
+		jackson			:	'2.8.1',
+		spring			:	'4.3.1.RELEASE',
+		springTest		:	'4.3.0.RELEASE'
+	]
+
+
+
+def springframework = [
+		"org.springframework:spring-core:${versions.spring}",
+		"org.springframework:spring-context:${versions.spring}",
+		"org.springframework:spring-context-support:${versions.spring}",
+		"org.springframework:spring-web:${versions.spring}",
+		"org.springframework:spring-webmvc:${versions.spring}",
+		"org.springframework:spring-aop:${versions.spring}",
+		"org.springframework:spring-tx:${versions.spring}",
+		"org.springframework:spring-aspects:${versions.spring}",
+		"org.springframework:spring-jdbc:${versions.spring}",
+		"org.springframework:spring-oxm:${versions.spring}",
+		"org.springframework:spring-orm:${versions.spring}",
+		"org.springframework:spring-test:${versions.spring}"
+]
+
+
+dependencies {
+	compile fileTree(dir: "libs", include: ["*.jar"])
+
+	compile springframework
+
+	providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+	compile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.1'
+	
+	compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.2'
+
+	compile group: "net.sf.json-lib", name: "json-lib", version:"2.3", classifier:"jdk15"
+	compile group: "net.sf.json-lib", name: "json-lib-ext-spring", version:"1.0.2"
+	compile group: "com.googlecode.json-simple", name: "json-simple", version:"1.1"
+	compile group: "com.fasterxml.jackson.core", name: "jackson-core", version:"${versions.jackson}"
+	compile group: "com.fasterxml.jackson.core", name: "jackson-databind", version:"${versions.jackson}"
+	compile group: "org.codehaus.jackson", name: "jackson-mapper-asl", version:"1.9.13"
+	compile group: "org.codehaus.jackson", name: "jackson-core-asl", version:"1.9.13"
+
+
+	
+
+	
+	compile group: "org.mybatis", name: "mybatis", version:"3.2.3"
+	compile group: "org.mybatis", name: "mybatis-spring", version:"1.2.1"
+	compile group: "junit", name: "junit", version:"4.11"
+
+
+
+	// logging
+	compile "org.slf4j:slf4j-api:${versions.slf4j}"
+	compile "org.slf4j:jcl-over-slf4j:${versions.slf4j}"
+	compile "org.slf4j:log4j-over-slf4j:${versions.slf4j}"
+	compile "org.slf4j:jul-to-slf4j:${versions.slf4j}"
+	compile "ch.qos.logback:logback-core:${versions.logback}"
+	compile "ch.qos.logback:logback-classic:${versions.logback}"
+
+
+
+	compile(group: "commons-beanutils", name: "commons-beanutils", version:"1.8.3") {
+		exclude(module: "commons-logging")
+	}
+
+
+
+
+	compile 'com.zaxxer:HikariCP:2.4.7'
+	// https://mvnrepository.com/artifact/org.hsqldb/hsqldb
+	runtime group: 'org.hsqldb', name: 'hsqldb', version: '2.3.2'
+	//cache
+	compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.3'
+   
+
+
+
+}
+
+task debug << {
+    configurations.compile.each { println it }
+    println "java.home is " + System.properties["java.home"]
+}
