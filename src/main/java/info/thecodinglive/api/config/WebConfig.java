@@ -1,5 +1,6 @@
 package info.thecodinglive.api.config;
 
+import info.thecodinglive.api.common.interceptors.ExecutionTimeInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +34,14 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 	        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
 	        localeChangeInterceptor.setParamName("lang");
 	        registry.addInterceptor(localeChangeInterceptor);
-	    }
+
+		  //실행시간 체크 interceptor
+		  ExecutionTimeInterceptor executeTimeInterceptor = new ExecutionTimeInterceptor();
+		  registry.addInterceptor(executeTimeInterceptor)
+				  .addPathPatterns("/**")
+				  .excludePathPatterns("/");
+
+	  }
 	  
 	  @Bean
 	    public LocaleResolver localResolver(){

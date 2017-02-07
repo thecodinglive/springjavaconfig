@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.0'
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'war'
@@ -7,6 +17,7 @@ apply plugin : 'eclipse-wtp'
 apply plugin : 'idea' 
 
 apply from : 'gradle/lib.gradle'
+apply from : 'gradle/tomcat.gradle'
 
 
 group = 'com.ttp'
@@ -25,15 +36,6 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'com.bmuschko:gradle-cargo-plugin:2.2.3'
-    }
-}
 
 
 defaultTasks 'initProject'
@@ -53,7 +55,7 @@ sourceSets {
 
 
 
-final String DEFAULT_PROFILE = 'test'
+final String DEFAULT_PROFILE = 'local'
 String profile2 = DEFAULT_PROFILE
 
 
